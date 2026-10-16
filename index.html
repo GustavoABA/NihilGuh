@@ -3,87 +3,89 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#09050f">
-  <meta name="description" content="NihilGuh — live, minigames, comunidade e caos no Mundo Louco.">
+  <meta name="theme-color" content="#08080a">
+  <meta name="description" content="NihilGuh — lives, minigames e comunidade no Mundo Louco.">
   <title>NihilGuh — Mundo Louco</title>
   <link rel="icon" type="image/webp" href="assets/ramen.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css?v=18">
+  <link rel="stylesheet" href="public.css?v=1">
 </head>
 <body data-page="home">
-  <main class="shell">
-    <header class="topbar">
-      <a class="brand" href="./"><img src="assets/logo.webp" alt="NihilGuh"></a>
-      <nav class="nav" aria-label="Navegação">
+  <div class="public-shell">
+    <header class="site-header">
+      <a class="site-brand" href="./" aria-label="NihilGuh — início">
+        <img src="assets/logo.webp" alt="NihilGuh">
+      </a>
+
+      <nav class="site-nav" aria-label="Navegação principal">
         <a href="live/" class="keep-mobile" data-live-only hidden>Live</a>
         <a href="play/" class="keep-mobile" data-live-only hidden>Jogar</a>
-        <a href="#apoio">Apoiar</a>
         <a href="#comunidade">Comunidade</a>
+        <a href="#apoio">Apoiar</a>
+        <a class="nav-cta" href="https://www.twitch.tv/nihilguh" target="_blank" rel="noreferrer">Twitch ↗</a>
       </nav>
     </header>
 
-    <div class="home-flow">
-      <section class="creator-editorial" id="perfil">
-        <div class="creator-avatar-wrap">
-          <img class="avatar" src="assets/avatar-nihilguh.webp" alt="Avatar NihilGuh">
-          <span class="live-dot" data-live-dot aria-label="Status da live"></span>
-        </div>
-        <div class="creator-copy">
-          <div class="creator-heading">
-            <h1>NihilGuh</h1>
-            <span class="handle">@nihilguh</span>
+    <main class="home-main">
+      <section class="home-hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="hero-status">
+            <span class="live-dot" data-live-dot aria-hidden="true"></span>
+            <span>Wonderland Broadcast</span>
           </div>
-          <p class="bio">Lives, jogos e caos. Um pequeno buraco de coelho na internet onde a própria comunidade consegue estender a transmissão.</p>
-          <div class="socials" aria-label="Redes sociais">
-            <a class="social-btn twitch" href="https://www.twitch.tv/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/twitch.svg" alt=""><span>Twitch</span></a>
-            <a class="social-btn youtube" href="https://www.youtube.com/@nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/youtube.svg" alt=""><span>YouTube</span></a>
-            <a class="social-btn tiktok" href="https://www.tiktok.com/@nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/tiktok.svg" alt=""><span>TikTok</span></a>
-            <a class="social-btn kick" href="https://kick.com/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/kick.svg" alt=""><span>Kick</span></a>
-            <a class="social-btn trovo" href="https://trovo.live/s/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/trovo.svg" alt=""><span>Trovo</span></a>
-            <a class="social-btn instagram" href="https://instagram.com/NihilGuh" target="_blank" rel="noreferrer"><img src="assets/icons/instagram.svg" alt=""><span>Instagram</span></a>
+
+          <h1 class="hero-title" id="hero-title">NihilGuh<span>.</span></h1>
+          <p class="hero-lead">Lives, jogos e caos com a comunidade no controle. Entre no Mundo Louco, participe dos desafios e ajude a decidir por quanto tempo a transmissão continua.</p>
+
+          <div class="hero-actions">
+            <a class="action-primary" href="https://www.twitch.tv/nihilguh" target="_blank" rel="noreferrer">Assistir na Twitch <span aria-hidden="true">↗</span></a>
+            <a class="action-secondary" href="https://discord.gg/7F9YbfvUXD" target="_blank" rel="noreferrer">Entrar no Discord</a>
+          </div>
+
+          <div class="hero-socials" aria-label="Redes sociais">
+            <a href="https://www.youtube.com/@nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/youtube.svg" alt="">YouTube</a>
+            <a href="https://www.tiktok.com/@nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/tiktok.svg" alt="">TikTok</a>
+            <a href="https://kick.com/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/kick.svg" alt="">Kick</a>
+            <a href="https://trovo.live/s/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/trovo.svg" alt="">Trovo</a>
+            <a href="https://instagram.com/NihilGuh" target="_blank" rel="noreferrer"><img src="assets/icons/instagram.svg" alt="">Instagram</a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <img src="assets/hero.webp" alt="">
+          <div class="hero-mini-card">
+            <span>Comunidade interativa</span>
+            <strong>Minigames e metas podem adicionar tempo à live.</strong>
           </div>
         </div>
       </section>
 
-      <section class="community-feature" id="comunidade">
-        <div class="feature-mark">☾</div>
-        <div class="feature-copy">
-          <h2>Entre no Mundo Louco</h2>
-          <p>Se você caiu aqui fora da live, o Discord é onde o caos continua. A Coret.cloud é o outro canto da comunidade.</p>
+      <section class="home-live section-rule" data-live-only hidden aria-labelledby="live-now-title">
+        <div class="section-head">
+          <div class="section-head-copy">
+            <span class="section-kicker">Agora ao vivo</span>
+            <h2 class="section-title" id="live-now-title">Assista e jogue no mesmo lugar.</h2>
+            <p class="section-description">A rodada é sincronizada para todo mundo. O primeiro acerto válido fecha o desafio e altera o relógio da sessão.</p>
+          </div>
+          <a class="action-secondary" href="live/">Abrir sala completa →</a>
         </div>
-        <div class="feature-actions">
-          <a class="community-link discord-link" href="https://discord.gg/7F9YbfvUXD" target="_blank" rel="noreferrer"><img src="assets/icons/discord.svg" alt=""><span>Entrar no Discord</span><b>↗</b></a>
-          <a class="community-link coret-link" href="https://coret.cloud" target="_blank" rel="noreferrer"><span class="coret-glyph">✦</span><span>Coret.cloud</span><b>↗</b></a>
-        </div>
-      </section>
 
-      <section class="support-feature" id="apoio">
-        <div>
-          <span class="support-kicker">♡ LivePix</span>
-          <h2>Quer manter o caos por mais tempo?</h2>
-          <p>Apoios e desafios da comunidade podem jogar mais minutos no relógio da live.</p>
-        </div>
-        <div class="support-actions">
-          <a class="livepix-btn" href="https://livepix.gg/justguh" target="_blank" rel="noreferrer"><span class="livepix-heart">♥</span><span>Apoiar pelo LivePix</span><b>↗</b></a>
-          <a class="support-subscribe" href="https://livepix.gg/justguh/assinatura" target="_blank" rel="noreferrer">Assinatura</a>
-        </div>
-      </section>
-
-      <section class="stack live-home-content">
-        <article class="card hero-card" id="home-transmission" data-live-only hidden>
-          <div class="hero-head">
-            <div><span class="eyebrow">TRANSMISSÃO</span></div>
+        <article class="stream-frame" id="home-transmission">
+          <div class="stream-toolbar">
+            <strong>NihilGuh na Twitch</strong>
             <span class="status-badge" data-live-badge>● AO VIVO</span>
           </div>
+
           <div class="player-wrap" id="home-player"></div>
 
           <section class="home-game-stage" aria-live="polite">
             <div class="home-game-bar">
               <div>
-                <span class="eyebrow">JOGO ATIVO</span>
-                <strong>Continue assistindo e jogue aqui mesmo.</strong>
+                <span class="eyebrow">Jogo ativo</span>
+                <strong>Continue assistindo e participe daqui.</strong>
               </div>
               <label class="home-player-name">
                 <span>Seu nome</span>
@@ -93,16 +95,47 @@
             <div id="home-game-root" class="home-game-root"></div>
           </section>
 
-          <div class="live-summary">
+          <div class="live-summary" aria-label="Resumo da live">
             <div class="metric"><span>Tempo restante</span><strong class="timer" id="home-timer">04:00:00</strong></div>
-            <div class="metric"><span>Comunidade</span><strong id="home-earned">+0 min</strong></div>
+            <div class="metric"><span>Tempo ganho</span><strong id="home-earned">+0 min</strong></div>
             <div class="metric"><span>Tempo total</span><strong id="home-total">4h</strong></div>
           </div>
         </article>
       </section>
-    </div>
-    <footer class="footer">NihilGuh · Wonderland Broadcast · a comunidade controla o relógio.</footer>
-  </main>
+
+      <section class="home-grid section-rule" aria-label="Comunidade e apoio">
+        <article class="feature-card" id="comunidade">
+          <div>
+            <span class="section-kicker">Comunidade</span>
+            <h2>O caos continua mesmo quando a live termina.</h2>
+            <p>Entre no Discord para acompanhar a comunidade, conversar e não perder as próximas transmissões. A Coret.cloud é o outro canto do Mundo Louco.</p>
+          </div>
+          <div class="feature-links">
+            <a class="feature-link primary-link" href="https://discord.gg/7F9YbfvUXD" target="_blank" rel="noreferrer"><img src="assets/icons/discord.svg" alt="">Entrar no Discord</a>
+            <a class="feature-link" href="https://coret.cloud" target="_blank" rel="noreferrer">Coret.cloud ↗</a>
+          </div>
+        </article>
+
+        <article class="feature-card" id="apoio">
+          <div>
+            <span class="section-kicker">Apoio · LivePix</span>
+            <h2>Ajude a manter a transmissão no ar.</h2>
+            <p>Apoios e desafios da comunidade podem colocar mais minutos no relógio da live.</p>
+          </div>
+          <div class="feature-links">
+            <a class="feature-link primary-link" href="https://livepix.gg/justguh" target="_blank" rel="noreferrer">Apoiar pelo LivePix ↗</a>
+            <a class="feature-link" href="https://livepix.gg/justguh/assinatura" target="_blank" rel="noreferrer">Assinatura</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>NihilGuh · Wonderland Broadcast</span>
+      <span>A comunidade controla o relógio.</span>
+    </footer>
+  </div>
+
   <script src="site.config.js?v=20"></script>
   <script src="goals-api.js?v=22"></script>
   <script src="games.js?v=17"></script>
