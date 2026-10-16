@@ -1,34 +1,67 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#09050f"><title>NihilGuh — Sala da Live</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08080a">
+  <meta name="description" content="Sala da live NihilGuh — assista, jogue e acompanhe o relógio da comunidade.">
+  <title>NihilGuh — Sala da Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../app.css?v=19">
   <link rel="stylesheet" href="live-game.css?v=1">
+  <link rel="stylesheet" href="../public.css?v=1">
 </head>
 <body data-page="live">
-  <main class="shell">
-    <header class="topbar">
-      <a class="brand" href="../"><img src="../assets/logo.webp" alt="NihilGuh"></a>
-      <nav class="nav"><a href="../">Perfil</a><a href="../play/" class="keep-mobile">🎮 Jogar</a><a href="https://www.twitch.tv/nihilguh" target="_blank" rel="noreferrer">Twitch ↗</a></nav>
+  <div class="public-shell">
+    <header class="site-header">
+      <a class="site-brand" href="../" aria-label="NihilGuh — início">
+        <img src="../assets/logo.webp" alt="NihilGuh">
+      </a>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="../">Início</a>
+        <a href="../play/" class="keep-mobile">Jogar</a>
+        <a class="nav-cta" href="https://www.twitch.tv/nihilguh" target="_blank" rel="noreferrer">Twitch ↗</a>
+      </nav>
     </header>
 
-    <div class="live-layout">
-      <section class="stack">
-        <article class="card hero-card">
-          <div class="hero-head">
-            <div><span class="eyebrow">SALA DA LIVE</span><h2>Wonderland Broadcast</h2></div>
-            <span class="status-badge" data-live-badge>OFFLINE</span>
-          </div>
+    <main class="live-main">
+      <header class="live-page-head">
+        <div>
+          <span class="section-kicker">Wonderland Broadcast</span>
+          <h1>Sala da live.</h1>
+          <p>Assista à transmissão, acompanhe o relógio e participe do desafio sincronizado com toda a comunidade.</p>
+        </div>
+        <span class="status-badge" data-live-badge>OFFLINE</span>
+      </header>
 
+      <section class="live-overview" aria-label="Transmissão e relógio">
+        <article class="live-primary-card">
           <div class="player-wrap" id="live-player"></div>
+          <div class="live-primary-meta">
+            <span>NihilGuh na Twitch</span>
+            <a href="https://www.twitch.tv/nihilguh" target="_blank" rel="noreferrer">Abrir na Twitch ↗</a>
+          </div>
+        </article>
 
+        <aside class="live-clock-card">
+          <span class="section-eyebrow">Relógio da live</span>
+          <div class="big-clock" id="live-clock">04:00:00</div>
+          <p class="subtle" id="live-state-copy">A sessão começa com 4 horas e pode chegar a 8 horas com os bônus da comunidade.</p>
+          <div class="stat-list">
+            <div class="stat-row"><span>Tempo ganho</span><strong id="live-bonus">+0 min</strong></div>
+            <div class="stat-row"><span>Tempo da sessão</span><strong id="live-total">4h base</strong></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="live-below">
+        <article class="live-game-card">
           <section class="live-game-panel" aria-labelledby="live-game-heading">
             <div class="live-game-panel-head">
               <div class="live-game-panel-title">
-                <span class="eyebrow">DESAFIO DA LIVE</span>
+                <span class="section-eyebrow">Desafio da live</span>
                 <strong id="live-game-heading">Jogue sem sair da transmissão</strong>
               </div>
               <span class="live-game-status" id="live-game-status">SINCRONIZANDO</span>
@@ -45,26 +78,20 @@
           </section>
         </article>
 
-        <article class="card">
-          <span class="eyebrow">MISSÕES DESTA SESSÃO</span>
-          <h2>A comunidade também joga fora dos minigames</h2>
+        <article class="live-goals-card">
+          <span class="section-eyebrow">Metas da sessão</span>
+          <h2>A comunidade também joga fora dos minigames.</h2>
           <div class="list" id="live-goals-list"><div class="subtle">Carregando metas…</div></div>
         </article>
       </section>
+    </main>
 
-      <aside class="live-side">
-        <article class="card">
-          <span class="eyebrow">RELÓGIO DA LIVE</span>
-          <div class="big-clock" id="live-clock">04:00:00</div>
-          <p class="subtle" id="live-state-copy">Até +2h de bônus: 4h base, máximo de 6h.</p>
-          <div class="list">
-            <div class="list-row"><span>Tempo ganho</span><strong id="live-bonus">+0 min</strong></div>
-            <div class="list-row"><span>Tempo da sessão</span><strong id="live-total">4h base</strong></div>
-          </div>
-        </article>
-      </aside>
-    </div>
-  </main>
+    <footer class="site-footer">
+      <span>NihilGuh · Wonderland Broadcast</span>
+      <a href="../">Voltar ao início</a>
+    </footer>
+  </div>
+
   <script src="../site.config.js?v=20"></script>
   <script src="../goals-api.js?v=22"></script>
   <script src="../games.js?v=18"></script>
