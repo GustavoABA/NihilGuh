@@ -1,21 +1,49 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#09050f"><title>NihilGuh — Jogar</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08080a">
+  <meta name="description" content="Minigames sincronizados da comunidade NihilGuh.">
+  <title>NihilGuh — Jogar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../app.css?v=19">
+  <link rel="stylesheet" href="../public.css?v=1">
 </head>
 <body data-page="play">
-  <main class="play-shell">
-    <header class="play-head">
-      <a class="brand" href="../"><img src="../assets/logo.webp" alt="NihilGuh"></a>
-      <div class="player-name"><span class="live-dot" data-live-dot></span><input id="player-name-input" maxlength="24" placeholder="Seu nome no jogo" aria-label="Seu nome no jogo"></div>
+  <div class="play-shell-v2">
+    <header class="play-header">
+      <a class="play-brand" href="../" aria-label="NihilGuh — início">
+        <img src="../assets/logo.webp" alt="NihilGuh">
+      </a>
+
+      <div class="play-identity">
+        <div class="play-status"><span class="live-dot" data-live-dot aria-hidden="true"></span><span>Jogo sincronizado</span></div>
+        <div class="player-name">
+          <input id="player-name-input" maxlength="24" placeholder="Seu nome no jogo" aria-label="Seu nome no jogo" autocomplete="nickname">
+        </div>
+      </div>
     </header>
-    <div id="play-root"><section class="card offline-card"><h1>Entrando no Mundo Louco…</h1><p class="subtle">Sincronizando a rodada com a live.</p></section></div>
-    <div class="actions" style="justify-content:center"><a class="btn secondary" href="../live/">← Voltar para a live</a></div>
-  </main>
-  <script src="../site.config.js?v=20"></script><script src="../goals-api.js?v=22"></script><script src="../games.js?v=18"></script><script src="../app.js?v=21"></script>
+
+    <main class="play-main">
+      <div id="play-root">
+        <section class="card offline-card">
+          <h1>Entrando no Mundo Louco…</h1>
+          <p class="subtle">Sincronizando a rodada com a live.</p>
+        </section>
+      </div>
+
+      <div class="play-footer-actions">
+        <a class="btn secondary" href="../live/">← Voltar para a live</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../site.config.js?v=20"></script>
+  <script src="../goals-api.js?v=22"></script>
+  <script src="../games.js?v=18"></script>
+  <script src="../app.js?v=21"></script>
 </body>
 </html>
