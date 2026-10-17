@@ -1,0 +1,52 @@
+/* Refinos da home: grid social mais centrado e mobile em coluna única. */
+.social-hub-v3{
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+}
+.social-hub-v3-head{
+  max-width:900px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.social-grid-v3{
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+}
+.social-card-v3{
+  justify-content:center;
+  padding-left:34px;
+  padding-right:34px;
+  text-align:center;
+}
+.social-card-v3::before{left:10px}
+.social-card-v3 b{
+  position:absolute;
+  right:13px;
+  margin:0;
+}
+.livepix-v3{
+  width:100%;
+  max-width:900px;
+  box-sizing:border-box;
+  margin-left:auto;
+  margin-right:auto;
+}
+@media(max-width:560px){
+  .social-hub-v3{max-width:420px}
+  .social-grid-v3{
+    grid-template-columns:1fr!important;
+    max-width:420px;
+    gap:9px;
+  }
+  .social-card-v3{
+    min-height:72px;
+    justify-content:flex-start;
+    text-align:left;
+    padding:13px 38px 13px 18px;
+  }
+  .social-card-v3::before{left:0}
+  .social-card-v3 b{display:block;right:14px}
+  .livepix-v3{max-width:420px}
+}
