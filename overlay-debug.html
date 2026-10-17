@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR" class="overlay-page">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=600,initial-scale=1">
+  <meta name="theme-color" content="#00000000">
+  <title>NihilGuh — Debug do Overlay (5 min)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css?v=18">
+  <link rel="stylesheet" href="overlay-v2.css?v=2">
+</head>
+<body data-page="overlay" class="overlay-clean-page">
+  <main class="overlay-shell overlay-clean-shell">
+    <section class="overlay-scene is-active" id="overlay-view-blank" aria-hidden="true"></section>
+
+    <section class="overlay-scene" id="overlay-view-timer" aria-live="polite" hidden>
+      <div class="overlay-timer-only" id="overlay-clock">00:05:00</div>
+    </section>
+
+    <section class="overlay-scene" id="overlay-view-wins" aria-live="polite" hidden>
+      <div class="overlay-summary-card">
+        <div class="overlay-winners-head">
+          <span>DESAFIOS CONCLUÍDOS</span>
+          <strong id="overlay-win-count">—</strong>
+        </div>
+        <div class="overlay-winners-list" id="overlay-winners-list"></div>
+      </div>
+    </section>
+
+    <section class="overlay-scene" id="overlay-view-overtime" aria-live="polite" hidden>
+      <div class="overtime-strip">
+        <strong class="overtime-word">OVERTIME</strong>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (() => {
+    // Esta página troca SOMENTE a fonte de dados. O visual e toda a lógica de
+    // alternância continuam vindo do mesmo overlay-controller.js da produção.
+    const startedAt = Date.now();
+    const startIso = new Date(startedAt).toISOString();
+
+    // Eventos simulados servem apenas para exercitar também a tela de desafios.
+    // O próprio controller só passa a exibi-los depois que o horário de cada
+    // conclusão é alcançado.
+    const debugWins = [
+      {
+        title: 'Desafio de debug #1',
+        winner: 'Teste da comunidade',
+        minutes: 5,
+        at: new Date(startedAt + 30 * 1000).toISOString()
+      },
+      {
+        title: 'Desafio de debug #2',
+        winner: 'Nihil Guh',
+        minutes: 3,
+        at: new Date(startedAt + 90 * 1000).toISOString()
+      }
+    ];
+
+    window.NihilGuhAPI = {
+      backendUrl: 'debug://local-5min',
+      async stateLite() {
+        return {
+          debug: true,
+          session: {
+            session_id: 'overlay_debug_' + startedAt,
+            inicio: startIso,
+            status: 'ONLINE',
+            tempo_base_min: 5,
+            tempo_ganho_min: 0,
+            tempo_total_min: 5
+          },
+          overlay: {
+            recentWins: debugWins
+          },
+          goals: [],
+          round: null
+        };
+      }
+    };
+  })();
+  </script>
+  <script src="overlay-controller.js?v=4"></script>
+</body>
+</html>
