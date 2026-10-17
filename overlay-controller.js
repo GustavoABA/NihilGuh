@@ -62,10 +62,23 @@
 
   function clock(seconds) {
     seconds = Math.max(0, Math.floor(Number(seconds || 0)));
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return [hours, minutes, secs].map(value => String(value).padStart(2, '0')).join(':');
+    const totalMinutes = seconds === 0 ? 0 : Math.ceil(seconds / 60);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return [hours, minutes].map(value => String(value).padStart(2, '0')).join(':');
+  }
+
+  function paintClock(seconds) {
+    const element = $('overlay-clock');
+    if (!element) return;
+
+    const next = clock(seconds);
+    if (element.textContent === next) return;
+
+    element.classList.remove('is-ticking');
+    element.textContent = next;
+    void element.offsetWidth;
+    element.classList.add('is-ticking');
   }
 
   function signedMinutes(value) {
@@ -204,11 +217,9 @@
   }
 
   function sitePromoHtml() {
-    return '<div class="overlay-site-promo">' +
-      '<strong>Jogue junto com a live</strong>' +
-      '<span>Minigames, tempo da sessão e todas as redes em</span>' +
-      '<b class="overlay-site-url">' + esc(SITE_URL) + '</b>' +
-    '</div>';
+    return '<div class="overlay-site-promo"><b class="overlay-site-url">' +
+      esc(SITE_URL) +
+    '</b></div>';
   }
 
   function summaryRowsHtml(summary) {
@@ -237,8 +248,10 @@
     const wins = summary.wins || [];
     const totalMinutes = wins.reduce((sum, win) => sum + Number(win?.minutes || 0), 0);
     const label = document.querySelector('#overlay-view-wins .overlay-winners-head span');
+    const card = document.querySelector('#overlay-view-wins .overlay-summary-card');
 
-    if (label) label.textContent = wins.length ? 'DESAFIOS CONCLUÍDOS' : 'NIHIL GUH';
+    if (card) card.classList.toggle('is-site-only', !wins.length);
+    if (label && wins.length) label.textContent = 'DESAFIOS CONCLUÍDOS';
 
     if ($('overlay-win-count')) {
       if (wins.length) {
@@ -246,7 +259,7 @@
         $('overlay-win-count').textContent =
           current + '/' + wins.length + ' · ' + signedMinutes(totalMinutes) + ' agregados';
       } else {
-        $('overlay-win-count').textContent = 'SITE DA LIVE';
+        $('overlay-win-count').textContent = '';
       }
     }
 
@@ -266,8 +279,8 @@
     const view = desiredMode(state);
     setView(view.mode);
 
-    if (view.mode === 'timer' && $('overlay-clock')) {
-      $('overlay-clock').textContent = clock(remainingSeconds(state));
+    if (view.mode === 'timer') {
+      paintClock(remainingSeconds(state));
     }
 
     if (view.mode === 'wins' && view.summary) {
@@ -292,7 +305,7 @@
   const preview = new URLSearchParams(location.search).get('preview');
   if (preview === 'timer') {
     setView('timer');
-    if ($('overlay-clock')) $('overlay-clock').textContent = '04:00:00';
+    if ($('overlay-clock')) $('overlay-clock').textContent = '04:00';
     return;
   }
   if (preview === 'overtime') {
