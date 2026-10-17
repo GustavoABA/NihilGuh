@@ -1,4 +1,4 @@
-/* NihilGuh overlay v2 — timer, resumo e overtime */
+/* NihilGuh overlay v2 — timer, desafios e overtime */
 html.overlay-page,
 html.overlay-page body,
 body.overlay-clean-page{
@@ -46,10 +46,8 @@ body.overlay-clean-page .overlay-clean-shell{
   transform:translateY(-5px) scale(.99);
 }
 
-/* Deliberately empty scene: keeps the browser source fully transparent. */
-#overlay-view-blank{
-  padding:0;
-}
+/* Empty is now used only while the live itself is offline. */
+#overlay-view-blank{padding:0}
 
 .overlay-timer-only{
   font-size:86px;
@@ -64,10 +62,7 @@ body.overlay-clean-page .overlay-clean-shell{
     0 0 2px rgba(255,255,255,.48);
 }
 
-/* Summary shown roughly every 15 minutes. */
-#overlay-view-wins{
-  align-content:center;
-}
+#overlay-view-wins{align-content:center}
 .overlay-summary-card{
   width:min(548px,100%);
   padding:18px 20px 17px;
@@ -141,20 +136,40 @@ body.overlay-clean-page .overlay-clean-shell{
   white-space:nowrap;
 }
 .overlay-win-row>b.negative{color:#ff8fab}
-.overlay-no-wins{
+
+.overlay-site-promo{
   min-height:132px;
   display:grid;
   place-content:center;
-  gap:5px;
+  justify-items:center;
+  gap:7px;
+  padding:16px 20px;
   text-align:center;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;
+  background:rgba(255,255,255,.022);
 }
-.overlay-no-wins strong{font-size:1.05rem;color:#fff}
-.overlay-no-wins span{font-size:.8rem;color:#9e93a7}
+.overlay-site-promo strong{
+  color:#fff;
+  font-size:1.08rem;
+  font-weight:900;
+}
+.overlay-site-promo span{
+  color:#a89dad;
+  font-size:.79rem;
+  font-weight:700;
+}
+.overlay-site-url{
+  margin-top:3px;
+  color:#d2adff;
+  font-size:1.02rem;
+  font-weight:950;
+  letter-spacing:.01em;
+  text-shadow:0 0 18px rgba(185,111,255,.18);
+}
 
 /* Overtime replaces the clock once normal time reaches zero. */
-#overlay-view-overtime{
-  padding:26px;
-}
+#overlay-view-overtime{padding:26px}
 .overtime-strip{
   position:relative;
   width:min(540px,100%);
