@@ -50,16 +50,23 @@ body.overlay-clean-page .overlay-clean-shell{
 #overlay-view-blank{padding:0}
 
 .overlay-timer-only{
-  font-size:86px;
+  font-family:"Rajdhani","Inter",sans-serif;
+  font-size:104px;
   line-height:.9;
-  font-weight:950;
-  letter-spacing:-.075em;
-  font-variant-numeric:tabular-nums;
+  font-weight:500;
+  letter-spacing:.105em;
+  text-indent:.105em;
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
   color:#fff;
   text-shadow:
-    0 4px 12px rgba(0,0,0,.92),
-    0 0 26px rgba(0,0,0,.86),
-    0 0 2px rgba(255,255,255,.48);
+    0 3px 12px rgba(0,0,0,.88),
+    0 0 24px rgba(0,0,0,.78),
+    0 0 18px rgba(193,137,255,.12);
+  will-change:transform,opacity,filter;
+}
+.overlay-timer-only.is-ticking{
+  animation:timerMinuteTick .62s cubic-bezier(.18,.72,.2,1);
 }
 
 #overlay-view-wins{align-content:center}
@@ -73,6 +80,12 @@ body.overlay-clean-page .overlay-clean-shell{
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
 }
+.overlay-summary-card.is-site-only{
+  width:auto;
+  min-width:390px;
+  padding:18px 24px;
+}
+.overlay-summary-card.is-site-only .overlay-winners-head{display:none}
 .overlay-winners-head{
   width:100%;
   display:flex;
@@ -138,34 +151,21 @@ body.overlay-clean-page .overlay-clean-shell{
 .overlay-win-row>b.negative{color:#ff8fab}
 
 .overlay-site-promo{
-  min-height:132px;
+  min-height:78px;
   display:grid;
   place-content:center;
   justify-items:center;
-  gap:7px;
-  padding:16px 20px;
+  padding:8px 12px;
   text-align:center;
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:14px;
-  background:rgba(255,255,255,.022);
-}
-.overlay-site-promo strong{
-  color:#fff;
-  font-size:1.08rem;
-  font-weight:900;
-}
-.overlay-site-promo span{
-  color:#a89dad;
-  font-size:.79rem;
-  font-weight:700;
 }
 .overlay-site-url{
-  margin-top:3px;
-  color:#d2adff;
-  font-size:1.02rem;
-  font-weight:950;
-  letter-spacing:.01em;
-  text-shadow:0 0 18px rgba(185,111,255,.18);
+  color:#d9baff;
+  font-family:"Rajdhani","Inter",sans-serif;
+  font-size:1.55rem;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.035em;
+  text-shadow:0 0 20px rgba(185,111,255,.20);
 }
 
 /* Overtime replaces the clock once normal time reaches zero. */
@@ -219,6 +219,11 @@ body.overlay-clean-page .overlay-clean-shell{
   animation:overtimePulse 2.1s ease-in-out infinite;
 }
 
+@keyframes timerMinuteTick{
+  0%{opacity:.30;transform:translateY(12px) scale(.985);filter:blur(2.5px)}
+  48%{opacity:1;filter:blur(.25px)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
 @keyframes overtimeShine{
   0%,18%{left:-35%;opacity:0}
   30%{opacity:1}
@@ -232,5 +237,5 @@ body.overlay-clean-page .overlay-clean-shell{
 
 @media(prefers-reduced-motion:reduce){
   .overlay-scene{transition:none!important}
-  .overtime-strip::before,.overtime-word{animation:none!important}
+  .overlay-timer-only.is-ticking,.overtime-strip::before,.overtime-word{animation:none!important}
 }
