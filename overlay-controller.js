@@ -120,14 +120,14 @@
     };
   }
 
-  function rollingSummary(s, positionSec) {
+  function rollingSummary(s, accumulatedInfoSec) {
     const wins = completedChallenges(s);
     return {
       kind:'rotation',
-      position:positionSec,
+      position:accumulatedInfoSec,
       wins,
       activeIndex:wins.length
-        ? Math.floor(Math.max(0, positionSec) / SUMMARY_SECONDS_PER_CHALLENGE) % wins.length
+        ? Math.floor(Math.max(0, accumulatedInfoSec) / SUMMARY_SECONDS_PER_CHALLENGE) % wins.length
         : -1
     };
   }
@@ -136,23 +136,32 @@
     const recap = summaryWindow(s);
     if (recap) return { mode:'wins', summary:recap };
 
-    const position = elapsedSeconds(s) % TIMER_CYCLE_SEC;
+    const elapsed = elapsedSeconds(s);
+    const cycleIndex = Math.floor(elapsed / TIMER_CYCLE_SEC);
+    const position = elapsed % TIMER_CYCLE_SEC;
+
     if (position < INFO_VISIBLE_SEC) {
-      return { mode:'wins', summary:rollingSummary(s, position) };
+      const accumulatedInfoSec = cycleIndex * INFO_VISIBLE_SEC + position;
+      return { mode:'wins', summary:rollingSummary(s, accumulatedInfoSec) };
     }
 
     return { mode:'timer', summary:null };
   }
 
   function overtimeView(s) {
-    const position = overtimeElapsedSeconds(s) % OVERTIME_CYCLE_SEC;
+    const elapsed = overtimeElapsedSeconds(s);
+    const cycleIndex = Math.floor(elapsed / OVERTIME_CYCLE_SEC);
+    const position = elapsed % OVERTIME_CYCLE_SEC;
+
     if (position < OVERTIME_VISIBLE_SEC) {
       return { mode:'overtime', summary:null };
     }
 
+    const infoPosition = position - OVERTIME_VISIBLE_SEC;
+    const accumulatedInfoSec = cycleIndex * OVERTIME_INFO_SEC + infoPosition;
     return {
       mode:'wins',
-      summary:rollingSummary(s, position - OVERTIME_VISIBLE_SEC)
+      summary:rollingSummary(s, accumulatedInfoSec)
     };
   }
 
