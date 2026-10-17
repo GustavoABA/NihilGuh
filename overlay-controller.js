@@ -1,20 +1,21 @@
 (() => {
   const api = window.NihilGuhAPI;
 
-  const TIMER_HIDDEN_SEC = 3 * 60;
+  const INFO_VISIBLE_SEC = 3 * 60;
   const TIMER_VISIBLE_SEC = 3 * 60;
-  const TIMER_CYCLE_SEC = TIMER_HIDDEN_SEC + TIMER_VISIBLE_SEC;
+  const TIMER_CYCLE_SEC = INFO_VISIBLE_SEC + TIMER_VISIBLE_SEC;
 
   const SUMMARY_INTERVAL_SEC = 15 * 60;
   const SUMMARY_SECONDS_PER_CHALLENGE = 30;
 
   const OVERTIME_VISIBLE_SEC = 5 * 60;
-  const OVERTIME_HIDDEN_SEC = 2 * 60;
-  const OVERTIME_CYCLE_SEC = OVERTIME_VISIBLE_SEC + OVERTIME_HIDDEN_SEC;
+  const OVERTIME_INFO_SEC = 2 * 60;
+  const OVERTIME_CYCLE_SEC = OVERTIME_VISIBLE_SEC + OVERTIME_INFO_SEC;
 
   const STATE_REFRESH_MS = 5000;
   const FRAME_MS = 250;
   const VIEW_TRANSITION_MS = 460;
+  const SITE_URL = 'gustavoaba.github.io/NihilGuh/';
 
   let state = null;
   let refreshInFlight = false;
@@ -106,6 +107,7 @@
     if (position >= duration) return null;
 
     return {
+      kind:'recap',
       elapsed,
       position,
       occurrence,
@@ -118,25 +120,45 @@
     };
   }
 
-  function normalMode(s) {
-    const summary = summaryWindow(s);
-    if (summary) return { mode:'wins', summary };
-
-    const position = elapsedSeconds(s) % TIMER_CYCLE_SEC;
+  function rollingSummary(s, positionSec) {
+    const wins = completedChallenges(s);
     return {
-      mode: position < TIMER_HIDDEN_SEC ? 'blank' : 'timer',
-      summary:null
+      kind:'rotation',
+      position:positionSec,
+      wins,
+      activeIndex:wins.length
+        ? Math.floor(Math.max(0, positionSec) / SUMMARY_SECONDS_PER_CHALLENGE) % wins.length
+        : -1
     };
   }
 
-  function overtimeMode(s) {
+  function normalMode(s) {
+    const recap = summaryWindow(s);
+    if (recap) return { mode:'wins', summary:recap };
+
+    const position = elapsedSeconds(s) % TIMER_CYCLE_SEC;
+    if (position < INFO_VISIBLE_SEC) {
+      return { mode:'wins', summary:rollingSummary(s, position) };
+    }
+
+    return { mode:'timer', summary:null };
+  }
+
+  function overtimeView(s) {
     const position = overtimeElapsedSeconds(s) % OVERTIME_CYCLE_SEC;
-    return position < OVERTIME_VISIBLE_SEC ? 'overtime' : 'blank';
+    if (position < OVERTIME_VISIBLE_SEC) {
+      return { mode:'overtime', summary:null };
+    }
+
+    return {
+      mode:'wins',
+      summary:rollingSummary(s, position - OVERTIME_VISIBLE_SEC)
+    };
   }
 
   function desiredMode(s) {
     if (!isLive(s)) return { mode:'blank', summary:null };
-    if (remainingSeconds(s) <= 0) return { mode:overtimeMode(s), summary:null };
+    if (remainingSeconds(s) <= 0) return overtimeView(s);
     return normalMode(s);
   }
 
@@ -172,11 +194,20 @@
     if (mode !== 'wins') lastSummaryIndex = -1;
   }
 
+  function sitePromoHtml() {
+    return '<div class="overlay-site-promo">' +
+      '<strong>Jogue junto com a live</strong>' +
+      '<span>Minigames, tempo da sessão e todas as redes em</span>' +
+      '<b class="overlay-site-url">' + esc(SITE_URL) + '</b>' +
+    '</div>';
+  }
+
   function summaryRowsHtml(summary) {
     const wins = summary.wins || [];
 
     if (!wins.length) {
-      return '<div class="overlay-no-wins"><strong>Nenhum desafio concluído ainda.</strong><span>O relógio continua esperando alguém aprontar.</span></div>';
+      lastSummaryIndex = -2;
+      return sitePromoHtml();
     }
 
     const index = summary.activeIndex;
@@ -196,6 +227,9 @@
   function paintSummary(summary) {
     const wins = summary.wins || [];
     const totalMinutes = wins.reduce((sum, win) => sum + Number(win?.minutes || 0), 0);
+    const label = document.querySelector('#overlay-view-wins .overlay-winners-head span');
+
+    if (label) label.textContent = wins.length ? 'DESAFIOS CONCLUÍDOS' : 'NIHIL GUH';
 
     if ($('overlay-win-count')) {
       if (wins.length) {
@@ -203,7 +237,7 @@
         $('overlay-win-count').textContent =
           current + '/' + wins.length + ' · ' + signedMinutes(totalMinutes) + ' agregados';
       } else {
-        $('overlay-win-count').textContent = 'nenhum desafio concluído';
+        $('overlay-win-count').textContent = 'SITE DA LIVE';
       }
     }
 
@@ -211,7 +245,6 @@
       $('overlay-winners-list').innerHTML = summaryRowsHtml(summary);
     } else if ($('overlay-winners-list') && !wins.length && lastSummaryIndex !== -2) {
       $('overlay-winners-list').innerHTML = summaryRowsHtml(summary);
-      lastSummaryIndex = -2;
     }
   }
 
@@ -259,10 +292,12 @@
   }
   if (preview === 'wins') {
     setView('wins');
-    if ($('overlay-win-count')) $('overlay-win-count').textContent = '1/1 · +5 min agregados';
-    if ($('overlay-winners-list')) {
-      $('overlay-winners-list').innerHTML = '<div class="overlay-win-row"><div class="overlay-win-player"><strong>Desafio concluído</strong><span>Visitante</span></div><b>+5 min</b></div>';
-    }
+    paintSummary({ wins:[{ title:'Desafio concluído', winner:'Visitante', minutes:5 }], activeIndex:0 });
+    return;
+  }
+  if (preview === 'site') {
+    setView('wins');
+    paintSummary({ wins:[], activeIndex:-1 });
     return;
   }
 
