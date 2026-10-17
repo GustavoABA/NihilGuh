@@ -4,35 +4,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#07050b">
-  <meta name="description" content="NihilGuh — lives, minigames e comunidade.">
-  <title>NihilGuh</title>
+  <meta name="description" content="Nihil Guh — lives, minigames e comunidade.">
+  <title>Nihil Guh</title>
   <link rel="icon" type="image/webp" href="assets/ramen.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css?v=18">
-  <link rel="stylesheet" href="home-v3.css?v=1">
+  <link rel="stylesheet" href="header-promo.css?v=1">
+  <link rel="stylesheet" href="home-v3.css?v=2">
 </head>
 <body data-page="home">
   <main class="shell">
-    <header class="topbar">
-      <a class="brand" href="./" aria-label="NihilGuh">
-        <img src="assets/logo.webp" alt="NihilGuh">
+    <header class="topbar topbar-with-ad">
+      <a class="brand" href="./" aria-label="Nihil Guh">
+        <img src="assets/logo.webp" alt="Nihil Guh">
       </a>
+
+      <a class="header-ad" data-header-ad href="https://orome.com.br" target="_blank" rel="noreferrer sponsored" aria-hidden="true">
+        <small>AD</small>
+        <strong>orome.com.br</strong>
+        <span>impressão 3D</span>
+      </a>
+
       <nav class="nav" aria-label="Navegação">
         <a href="#redes">Redes</a>
-        <a href="#apoio">Apoiar</a>
+        <a href="support.html">Apoiar</a>
         <a href="#transmissao" data-live-only hidden>Ao vivo</a>
       </nav>
     </header>
 
     <div class="home-flow home-v3-flow">
-      <section class="profile-v3" aria-label="Perfil NihilGuh">
+      <section class="profile-v3" aria-label="Perfil Nihil Guh">
         <div class="profile-v3-avatar">
-          <img class="avatar" src="assets/avatar-nihilguh.webp" alt="Avatar NihilGuh">
+          <img class="avatar" src="assets/avatar-nihilguh.webp" alt="Avatar Nihil Guh">
           <span class="live-dot" data-live-dot aria-label="Status da live"></span>
         </div>
-        <h1>NihilGuh</h1>
+        <h1>Nihil Guh</h1>
         <span class="handle">@nihilguh</span>
       </section>
 
@@ -86,14 +94,14 @@
         </div>
       </section>
 
-      <a class="livepix-v3" id="apoio" href="https://livepix.gg/justguh" target="_blank" rel="noreferrer">
+      <a class="livepix-v3" id="apoio" href="support.html">
         <span class="livepix-v3-icon">♥</span>
         <span class="livepix-v3-copy">
           <small>APOIE A LIVE</small>
           <strong>LivePix</strong>
-          <span>Ajude a colocar mais tempo no cronômetro.</span>
+          <span>Veja o histórico das lives e apoie o projeto.</span>
         </span>
-        <span class="livepix-v3-arrow">↗</span>
+        <span class="livepix-v3-arrow">→</span>
       </a>
 
       <section class="stack live-home-content" id="transmissao" data-live-only hidden>
@@ -141,7 +149,7 @@
     </div>
 
     <footer class="footer clean-footer-v3">
-      <span>NihilGuh</span>
+      <span>Nihil Guh</span>
       <span>Lives · jogos · comunidade</span>
     </footer>
   </main>
@@ -149,6 +157,7 @@
   <script src="site.config.js?v=20"></script>
   <script src="goals-api.js?v=22"></script>
   <script src="games.js?v=17"></script>
+  <script src="header-promo.js?v=1"></script>
   <script src="app.js?v=20"></script>
 </body>
 </html>
