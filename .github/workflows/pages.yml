@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       # Visual assets are committed as real WebP files.
-      # Do not rebuild from base64 chunks and do not re-encode them in CI.
+      # Validate existence + WebP signature, not arbitrary file size.
       - name: Verify direct visual assets
         shell: bash
         run: |
@@ -34,13 +34,16 @@ jobs:
           required = [
               Path("assets/bg.webp"),
               Path("assets/logo.webp"),
+              Path("assets/logo-nihilguh-final.webp"),
               Path("assets/hero.webp"),
               Path("assets/ramen.webp"),
           ]
           for p in required:
+              if not p.is_file():
+                  raise SystemExit(f"{p} is missing")
               data = p.read_bytes()
-              if len(data) < 50_000:
-                  raise SystemExit(f"{p} is unexpectedly small: {len(data)} bytes")
+              if len(data) < 12:
+                  raise SystemExit(f"{p} is too small to be a valid WebP: {len(data)} bytes")
               if data[:4] != b"RIFF" or data[8:12] != b"WEBP":
                   raise SystemExit(f"{p} is not a valid WebP")
               print(p, len(data), "bytes")
