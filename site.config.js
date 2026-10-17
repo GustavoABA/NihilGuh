@@ -4,6 +4,12 @@
   const params = new URLSearchParams(location.search);
   const supplied = params.get('backend');
 
+  // Shared Twitch embed state used by app.js. Keep it global so every page
+  // that loads the common runtime has a single pending-embed registry.
+  if (!(window.embeddingPending instanceof Set)) {
+    window.embeddingPending = new Set();
+  }
+
   // Official NihilGuh Apps Script backend.
   // A valid ?backend= URL can still be used to replace it intentionally.
   if (supplied && /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/i.test(supplied)) {
