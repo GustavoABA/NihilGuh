@@ -58,20 +58,40 @@
   `;
   document.head.appendChild(style);
 
-  const CHECK_MS = 5000;
+  const CHECK_MS = 10000;
   const VOD_CACHE_MS = 5 * 60 * 1000;
   let checking = false;
   let cachedVod = null;
   let cachedAt = 0;
+  let replayObserver = null;
+  let pendingVod = null;
 
   function isLive(state) {
     return Boolean(state?.session && state.session.status === 'ONLINE');
+  }
+
+  function playerVisibleEnough() {
+    const style = getComputedStyle(player);
+    if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+    const rect = player.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    const visibleY = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+    const visibleX = Math.min(rect.right, vw) - Math.max(rect.left, 0);
+    return rect.width >= 320 && rect.height >= 180 && visibleY >= Math.min(120, rect.height * .25) && visibleX > 0;
+  }
+
+  function stopReplayObserver() {
+    replayObserver?.disconnect();
+    replayObserver = null;
+    pendingVod = null;
   }
 
   function setLiveLayout(live) {
     transmission.hidden = false;
     panel.classList.toggle('is-replay', !live);
 
+    if (live) stopReplayObserver();
     if (game) game.hidden = !live;
     if (summary) summary.hidden = !live;
 
@@ -110,7 +130,7 @@
     return cachedVod;
   }
 
-  function mountReplay(vod) {
+  function mountReplayNow(vod) {
     let wrap = player.querySelector('.offline-art');
     if (!wrap) {
       wrap = document.createElement('div');
@@ -135,7 +155,6 @@
     iframe.title = 'Última live de Nihil Guh na Twitch';
     iframe.dataset.vodId = vod.id;
     iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-    iframe.allowFullscreen = true;
     iframe.scrolling = 'no';
     iframe.src = 'https://player.twitch.tv/?video=v' + encodeURIComponent(vod.id) +
       '&parent=' + encodeURIComponent(parent) + '&autoplay=true&muted=true';
@@ -143,8 +162,38 @@
     wrap.replaceChildren(iframe);
   }
 
+  function mountReplay(vod) {
+    pendingVod = vod;
+    if (playerVisibleEnough()) {
+      stopReplayObserver();
+      mountReplayNow(vod);
+      return;
+    }
+
+    let wrap = player.querySelector('.offline-art');
+    if (!wrap) {
+      wrap = document.createElement('div');
+      wrap.className = 'offline-art replay-art';
+      player.replaceChildren(wrap);
+    }
+    wrap.classList.add('replay-art');
+    if (!wrap.querySelector('iframe')) {
+      wrap.innerHTML = '<div class="replay-fallback"><div><strong>Última live</strong><span>O replay começa automaticamente quando esta área entrar na tela.</span></div></div>';
+    }
+
+    if (replayObserver || !('IntersectionObserver' in window)) return;
+    replayObserver = new IntersectionObserver(entries => {
+      const entry = entries[0];
+      if (!entry?.isIntersecting || entry.intersectionRatio < .15) return;
+      const vodToMount = pendingVod;
+      stopReplayObserver();
+      mountReplayNow(vodToMount);
+    }, { threshold: [0, .15, .35] });
+    replayObserver.observe(player);
+  }
+
   async function syncReplay() {
-    if (checking) return;
+    if (checking || document.visibilityState === 'hidden') return;
     checking = true;
 
     try {
@@ -166,5 +215,9 @@
   }
 
   syncReplay();
-  window.setInterval(syncReplay, CHECK_MS);
+  const replayPoll = window.setInterval(syncReplay, CHECK_MS);
+  window.addEventListener('pagehide', () => {
+    clearInterval(replayPoll);
+    stopReplayObserver();
+  }, { once: true });
 })();
