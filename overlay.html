@@ -9,38 +9,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css?v=18">
+  <link rel="stylesheet" href="overlay-v2.css?v=1">
 </head>
 <body data-page="overlay" class="overlay-clean-page">
   <main class="overlay-shell overlay-clean-shell">
-    <section class="overlay-scene is-active" id="overlay-view-timer" aria-live="polite">
+    <section class="overlay-scene is-active" id="overlay-view-blank" aria-hidden="true"></section>
+
+    <section class="overlay-scene" id="overlay-view-timer" aria-live="polite" hidden>
       <div class="overlay-timer-only" id="overlay-clock">04:00:00</div>
     </section>
 
-    <section class="overlay-scene" id="overlay-view-cta" hidden>
-      <div class="overlay-cta-scene">
-        <div class="overlay-mascot" aria-hidden="true">
-          <img src="assets/avatar-nihilguh.webp" alt="">
-          <span class="overlay-point">👉</span>
+    <section class="overlay-scene" id="overlay-view-wins" aria-live="polite" hidden>
+      <div class="overlay-summary-card">
+        <div class="overlay-winners-head">
+          <span>DESAFIOS CONCLUÍDOS</span>
+          <strong id="overlay-win-count">—</strong>
         </div>
-        <div class="overlay-cta-copy">
-          <span>ENTRA NO MUNDO LOUCO</span>
-          <strong>gustavoaba.github.io/NihilGuh-Site-Vibecode/</strong>
-          <small>assista a live e jogue com a comunidade</small>
-        </div>
+        <div class="overlay-winners-list" id="overlay-winners-list"></div>
       </div>
     </section>
 
-    <section class="overlay-scene" id="overlay-view-wins" hidden>
-      <div class="overlay-winners-head">
-        <span>QUEM MEXEU NO RELÓGIO?</span>
-        <strong id="overlay-win-count">—</strong>
+    <section class="overlay-scene" id="overlay-view-overtime" aria-live="polite" hidden>
+      <div class="overtime-strip">
+        <strong class="overtime-word">OVERTIME</strong>
       </div>
-      <div class="overlay-winners-list" id="overlay-winners-list"></div>
     </section>
   </main>
 
   <script src="site.config.js?v=20"></script>
   <script src="goals-api.js?v=22"></script>
-  <script src="app.js?v=20"></script>
+  <script src="overlay-controller.js?v=1"></script>
 </body>
 </html>
