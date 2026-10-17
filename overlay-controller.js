@@ -100,8 +100,6 @@
       : Date.now();
     const wins = completedChallenges(s, cutoffMs);
 
-    // Cada desafio recebe sua própria tela por 30 segundos.
-    // Quando ainda não há vitórias, a mensagem de estado ocupa 30 segundos.
     const itemCount = Math.max(1, wins.length);
     const duration = itemCount * SUMMARY_SECONDS_PER_CHALLENGE;
 
@@ -247,6 +245,25 @@
     } finally {
       refreshInFlight = false;
     }
+  }
+
+  const preview = new URLSearchParams(location.search).get('preview');
+  if (preview === 'timer') {
+    setView('timer');
+    if ($('overlay-clock')) $('overlay-clock').textContent = '04:00:00';
+    return;
+  }
+  if (preview === 'overtime') {
+    setView('overtime');
+    return;
+  }
+  if (preview === 'wins') {
+    setView('wins');
+    if ($('overlay-win-count')) $('overlay-win-count').textContent = '1/1 · +5 min agregados';
+    if ($('overlay-winners-list')) {
+      $('overlay-winners-list').innerHTML = '<div class="overlay-win-row"><div class="overlay-win-player"><strong>Desafio concluído</strong><span>Visitante</span></div><b>+5 min</b></div>';
+    }
+    return;
   }
 
   setView('blank');
