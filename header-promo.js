@@ -92,8 +92,14 @@
     panel.classList.toggle('is-replay', !live);
 
     if (live) stopReplayObserver();
-    if (game) game.hidden = !live;
-    if (summary) summary.hidden = !live;
+    if (game) {
+      game.hidden = !live;
+      game.setAttribute('aria-hidden', live ? 'false' : 'true');
+    }
+    if (summary) {
+      summary.hidden = !live;
+      summary.setAttribute('aria-hidden', live ? 'false' : 'true');
+    }
 
     if (eyebrow) eyebrow.textContent = live ? 'TRANSMISSÃO' : 'ÚLTIMA LIVE';
     if (badge) {
@@ -207,6 +213,14 @@
       mountReplay(vod);
     } catch (error) {
       console.warn('Não foi possível sincronizar o replay da home.', error);
+
+      // app.js is the authority for the live state. If it already marked the
+      // page as live, a transient replay/backend failure must not hide games.
+      if (document.body.classList.contains('is-live')) {
+        setLiveLayout(true);
+        return;
+      }
+
       setLiveLayout(false);
       mountReplay(null);
     } finally {
