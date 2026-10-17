@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07050b">
+  <meta name="description" content="Apoie Nihil Guh e acompanhe o histórico recente das lives.">
+  <title>Apoiar · Nihil Guh</title>
+  <link rel="icon" type="image/webp" href="assets/ramen.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css?v=18">
+  <link rel="stylesheet" href="header-promo.css?v=1">
+  <link rel="stylesheet" href="support.css?v=1">
+</head>
+<body data-page="support">
+  <main class="support-shell">
+    <header class="topbar topbar-with-ad support-topbar">
+      <a class="brand" href="./" aria-label="Nihil Guh">
+        <img src="assets/logo.webp" alt="Nihil Guh">
+      </a>
+
+      <a class="header-ad" data-header-ad href="https://orome.com.br" target="_blank" rel="noreferrer sponsored" aria-hidden="true">
+        <small>AD</small>
+        <strong>orome.com.br</strong>
+        <span>impressão 3D</span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação">
+        <a href="./">Início</a>
+        <a href="./#redes">Redes</a>
+        <a href="support.html" aria-current="page">Apoiar</a>
+      </nav>
+    </header>
+
+    <section class="support-hero">
+      <span class="support-kicker">APOIE O PROJETO</span>
+      <h1>Ajude a manter a live, o site e os minigames rodando.</h1>
+      <p>O apoio ajuda a manter a estrutura do projeto e financiar melhorias na transmissão, no site e nas experiências interativas da comunidade.</p>
+    </section>
+
+    <section class="support-grid">
+      <article class="support-card support-checkout-card">
+        <div class="support-card-head">
+          <div>
+            <small>LIVEPIX</small>
+            <h2>Apoiar agora</h2>
+          </div>
+          <span>Pix seguro</span>
+        </div>
+
+        <form id="support-form" class="support-form">
+          <label>
+            <span>Valor</span>
+            <div class="amount-row" role="group" aria-label="Valores sugeridos">
+              <button type="button" data-amount="5">R$ 5</button>
+              <button type="button" data-amount="10">R$ 10</button>
+              <button type="button" data-amount="20">R$ 20</button>
+              <button type="button" data-amount="50">R$ 50</button>
+            </div>
+            <input id="support-amount" name="amount" type="number" min="1" max="5000" step="1" inputmode="decimal" placeholder="Outro valor em R$" required>
+          </label>
+
+          <label>
+            <span>Seu nome</span>
+            <input id="support-name" name="name" maxlength="32" autocomplete="name" placeholder="Anônimo">
+          </label>
+
+          <label>
+            <span>Mensagem</span>
+            <input id="support-message" name="message" maxlength="32" placeholder="Apoio para a live ♡">
+          </label>
+
+          <button class="support-submit" id="support-submit" type="submit">Continuar no LivePix ↗</button>
+          <p class="support-feedback" id="support-feedback" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="support-card support-livepix-embed-card">
+        <div class="support-card-head">
+          <div>
+            <small>LIVEPIX</small>
+            <h2>Abrir dentro do site</h2>
+          </div>
+        </div>
+        <div class="livepix-frame-wrap">
+          <iframe src="https://livepix.gg/justguh" title="LivePix Nihil Guh" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <p class="support-note">Se o LivePix bloquear o carregamento dentro da página, use o botão abaixo.</p>
+        <a class="support-open-livepix" href="https://livepix.gg/justguh" target="_blank" rel="noreferrer">Abrir LivePix em nova aba ↗</a>
+      </article>
+    </section>
+
+    <section class="support-history" aria-labelledby="history-title">
+      <div class="support-section-head">
+        <div>
+          <span>HISTÓRICO</span>
+          <h2 id="history-title">Lives recentes</h2>
+        </div>
+        <p>Dados puxados do próprio registro de lives.</p>
+      </div>
+      <div class="support-history-list" id="support-history-list">
+        <div class="support-history-loading">Carregando histórico…</div>
+      </div>
+    </section>
+
+    <section class="support-socials" id="redes">
+      <div class="support-section-head">
+        <div>
+          <span>REDES</span>
+          <h2>Continue acompanhando</h2>
+        </div>
+      </div>
+
+      <div class="support-social-grid">
+        <a class="support-social-card" href="https://www.twitch.tv/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/twitch.svg" alt=""><strong>Twitch</strong><b>↗</b></a>
+        <a class="support-social-card" href="https://www.youtube.com/@nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/youtube.svg" alt=""><strong>YouTube</strong><b>↗</b></a>
+        <a class="support-social-card" href="https://www.tiktok.com/@nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/tiktok.svg" alt=""><strong>TikTok</strong><b>↗</b></a>
+        <a class="support-social-card" href="https://kick.com/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/kick.svg" alt=""><strong>Kick</strong><b>↗</b></a>
+        <a class="support-social-card" href="https://trovo.live/s/nihilguh" target="_blank" rel="noreferrer"><img src="assets/icons/trovo.svg" alt=""><strong>Trovo</strong><b>↗</b></a>
+        <a class="support-social-card" href="https://instagram.com/NihilGuh" target="_blank" rel="noreferrer"><img src="assets/icons/instagram.svg" alt=""><strong>Instagram</strong><b>↗</b></a>
+        <a class="support-social-card" href="https://discord.gg/7F9YbfvUXD" target="_blank" rel="noreferrer"><img src="assets/icons/discord.svg" alt=""><strong>Discord</strong><b>↗</b></a>
+        <a class="support-social-card" href="https://coret.cloud" target="_blank" rel="noreferrer"><span>✦</span><strong>Coret.cloud</strong><b>↗</b></a>
+      </div>
+    </section>
+
+    <footer class="support-footer">
+      <span>Nihil Guh</span>
+      <span>Lives · jogos · comunidade</span>
+    </footer>
+  </main>
+
+  <script src="site.config.js?v=20"></script>
+  <script src="goals-api.js?v=23"></script>
+  <script src="header-promo.js?v=1"></script>
+  <script src="support.js?v=1"></script>
+</body>
+</html>
