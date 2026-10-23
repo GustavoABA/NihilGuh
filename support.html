@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css?v=18">
   <link rel="stylesheet" href="header-promo.css?v=1">
-  <link rel="stylesheet" href="support.css?v=1">
+  <link rel="stylesheet" href="support.css?v=2">
 </head>
 <body data-page="support">
   <main class="support-shell">
@@ -40,58 +40,6 @@
       <p>O apoio ajuda a manter a estrutura do projeto e financiar melhorias na transmissão, no site e nas experiências interativas da comunidade.</p>
     </section>
 
-    <section class="support-grid">
-      <article class="support-card support-checkout-card">
-        <div class="support-card-head">
-          <div>
-            <small>LIVEPIX</small>
-            <h2>Apoiar agora</h2>
-          </div>
-          <span>Pix seguro</span>
-        </div>
-
-        <form id="support-form" class="support-form">
-          <label>
-            <span>Valor</span>
-            <div class="amount-row" role="group" aria-label="Valores sugeridos">
-              <button type="button" data-amount="5">R$ 5</button>
-              <button type="button" data-amount="10">R$ 10</button>
-              <button type="button" data-amount="20">R$ 20</button>
-              <button type="button" data-amount="50">R$ 50</button>
-            </div>
-            <input id="support-amount" name="amount" type="number" min="1" max="5000" step="1" inputmode="decimal" placeholder="Outro valor em R$" required>
-          </label>
-
-          <label>
-            <span>Seu nome</span>
-            <input id="support-name" name="name" maxlength="32" autocomplete="name" placeholder="Anônimo">
-          </label>
-
-          <label>
-            <span>Mensagem</span>
-            <input id="support-message" name="message" maxlength="32" placeholder="Apoio para a live ♡">
-          </label>
-
-          <button class="support-submit" id="support-submit" type="submit">Continuar no LivePix ↗</button>
-          <p class="support-feedback" id="support-feedback" aria-live="polite"></p>
-        </form>
-      </article>
-
-      <article class="support-card support-livepix-embed-card">
-        <div class="support-card-head">
-          <div>
-            <small>LIVEPIX</small>
-            <h2>Abrir dentro do site</h2>
-          </div>
-        </div>
-        <div class="livepix-frame-wrap">
-          <iframe src="https://livepix.gg/justguh" title="LivePix Nihil Guh" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <p class="support-note">Se o LivePix bloquear o carregamento dentro da página, use o botão abaixo.</p>
-        <a class="support-open-livepix" href="https://livepix.gg/justguh" target="_blank" rel="noreferrer">Abrir LivePix em nova aba ↗</a>
-      </article>
-    </section>
-
     <section class="support-history" aria-labelledby="history-title">
       <div class="support-section-head">
         <div>
@@ -103,6 +51,13 @@
       <div class="support-history-list" id="support-history-list">
         <div class="support-history-loading">Carregando histórico…</div>
       </div>
+    </section>
+
+    <section class="support-direct" aria-labelledby="support-direct-title">
+      <span class="support-kicker">LIVEPIX</span>
+      <h2 id="support-direct-title">Quer apoiar a próxima live?</h2>
+      <p>Continue no LivePix para escolher o valor e enviar seu apoio diretamente pela plataforma.</p>
+      <a class="support-direct-button" href="https://livepix.gg/justguh">Continuar para o LivePix <span aria-hidden="true">↗</span></a>
     </section>
 
     <section class="support-socials" id="redes">
