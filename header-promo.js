@@ -1,20 +1,32 @@
 (() => {
   const ad = document.querySelector('[data-header-ad]');
   if (ad) {
-    const BASE_INTERVAL_MS = 5 * 60 * 1000;
+    const popup = document.createElement('aside');
+    popup.className = 'orume-popup';
+    popup.setAttribute('aria-hidden', 'true');
+    popup.innerHTML = '<span class="orume-popup-label">PUBLICIDADE · ORUME</span><button type="button" class="orume-popup-close" aria-label="Fechar anúncio">×</button><strong>Compre na Orume!</strong><p>Confira produtos e novidades em impressão 3D.</p><a href="https://orume.com.br/" target="_blank" rel="noopener noreferrer sponsored">Visitar Orume ↗</a><div class="orume-popup-progress" aria-hidden="true"><span></span></div>';
+    document.body.appendChild(popup);
+    popup.querySelector('button').addEventListener('click', () => { clearTimeout(hideTimer); hideAd(); scheduleNext(); });
+    const BASE_INTERVAL_MS = 2 * 60 * 1000;
     const JITTER_MS = 30 * 1000;
-    const VISIBLE_MS = 18 * 1000;
+    const VISIBLE_MS = 20 * 1000;
     let hideTimer = null;
     let nextTimer = null;
 
     function hideAd() {
       ad.classList.remove('is-visible');
       ad.setAttribute('aria-hidden', 'true');
+      popup?.classList.remove('is-visible');
+      popup?.setAttribute('aria-hidden', 'true');
     }
 
     function showAd() {
       ad.classList.add('is-visible');
       ad.setAttribute('aria-hidden', 'false');
+      popup.classList.remove('is-visible');
+      void popup.offsetWidth;
+      popup.classList.add('is-visible');
+      popup.setAttribute('aria-hidden', 'false');
       clearTimeout(hideTimer);
       hideTimer = window.setTimeout(() => {
         hideAd();
@@ -29,7 +41,7 @@
     }
 
     hideAd();
-    scheduleNext();
+    showAd();
   }
 
   if (document.body.dataset.page !== 'home') return;
