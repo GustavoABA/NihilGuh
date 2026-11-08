@@ -44,6 +44,7 @@ jobs:
           test -f overlay.html
           test -f starting/index.html
           test -f tiktok/index.html
+          test -f tiktok/mobile/index.html
           test -f tiktok/player.js
           test -f starting/starting.css
           test -f starting/starting.js
