@@ -20,6 +20,7 @@ jobs:
           node --check goals-api.js
           node --check site.config.js
           node --check starting/starting.js
+          node --check tiktok/player.js
       - name: Check Apps Script JavaScript syntax
         run: |
           cat apps-script/Code.gs apps-script/Interactions.gs apps-script/RoundEngine.gs > /tmp/backend.js
@@ -42,6 +43,8 @@ jobs:
           test -f overlay/index.html
           test -f overlay.html
           test -f starting/index.html
+          test -f tiktok/index.html
+          test -f tiktok/player.js
           test -f starting/starting.css
           test -f starting/starting.js
           test -f assets/audio/harpy-hare.mp3
