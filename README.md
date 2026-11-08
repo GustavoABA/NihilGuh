@@ -6,6 +6,7 @@ Hub de live e interação da comunidade publicado em GitHub Pages, com estado au
 
 - `/` — perfil, canais, comunidade, apoio e estado da live.
 - `/live/` — player Twitch, relógio, metas e rodada.
+- `/tiktok/` — player Twitch isolado, 100% da janela, para captura no OBS/TikTok.
 - `/play/` — minigame global sincronizado.
 - `/overlay/` — overlay OBS 600×400.
 - `/overlay.html` — URL legada do overlay.
@@ -119,3 +120,21 @@ O vídeo enviado como referência foi convertido para uma textura de baixíssimo
 `assets/video/harpy-hare-reference.mp4`
 
 Essa cópia é deliberadamente pequena porque aparece somente como textura desfocada/monocromática no palco. O vídeo original continua sendo a referência visual de direção de arte.
+
+## Player TikTok (rota independente)
+
+Abra `/tiktok/` em uma fonte de navegador do OBS (p. ex., 1080×1920 para fonte vertical ou 1920×1080 para horizontal).
+A página usa o **player oficial Twitch** para o canal `nihilguh`, sem chat e sem a interface do site.
+A URL tenta autoplay **com som**. Quando a política do navegador bloquear isso, ela
+tenta reproduzir mutada e mostra o botão **Ativar som / iniciar live**.
+
+- `/tiktok/?muted=1`: inicia mutado para maximizar a compatibilidade de autoplay.
+- `/tiktok/?clean=1`: oculta o botão de recuperação (use apenas se reprodução/áudio já estiverem autorizados).
+- Tecla **F**: solicita tela cheia nativa após a interação do usuário; no OBS o CSS já preenche 100% da fonte.
+
+**Limitações:** browsers móveis podem exigir toque para iniciar o vídeo; navegadores normalmente
+bloqueiam autoplay com som. Nenhum JavaScript pode obrigar tela cheia nativa sem
+interação do usuário. Se capturar áudio no OBS, é preciso configurar a fonte de áudio
+corretamente; câmera virtual transmite vídeo, não necessariamente áudio. O player
+da Twitch impõe tamanho mínimo de 400×300 px, portanto algumas telas móveis
+muito estreitas terão um pequeno corte horizontal.
