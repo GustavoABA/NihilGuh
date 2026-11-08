@@ -7,6 +7,7 @@ Hub de live e interação da comunidade publicado em GitHub Pages, com estado au
 - `/` — perfil, canais, comunidade, apoio e estado da live.
 - `/live/` — player Twitch, relógio, metas e rodada.
 - `/tiktok/` — player Twitch isolado, 100% da janela, para captura no OBS/TikTok.
+- `/tiktok/mobile/` — teste de iframe apontando literalmente para `https://m.twitch.tv/nihilguh`.
 - `/play/` — minigame global sincronizado.
 - `/overlay/` — overlay OBS 600×400.
 - `/overlay.html` — URL legada do overlay.
@@ -138,3 +139,18 @@ interação do usuário. Se capturar áudio no OBS, é preciso configurar a font
 corretamente; câmera virtual transmite vídeo, não necessariamente áudio. O player
 da Twitch impõe tamanho mínimo de 400×300 px, portanto algumas telas móveis
 muito estreitas terão um pequeno corte horizontal.
+
+### Experimento Twitch mobile em iframe
+
+A rota `/tiktok/mobile/` aponta diretamente para `https://m.twitch.tv/nihilguh`.
+Ela dimensiona o iframe a **390 pixels CSS** e escala a imagem para a fonte do OBS,
+para tentar ativar a apresentação responsiva móvel mesmo em um canvas vertical maior.
+O parâmetro `?clean=1` oculta os links auxiliares; a tecla **H** alterna sua exibição.
+
+**Atenção:** esta é uma opção experimental. A Twitch não documenta `m.twitch.tv`
+como origem aprovada para iframe. Seu servidor pode bloquear a incorporação via
+`Content-Security-Policy: frame-ancestors` ou `X-Frame-Options`. Se isso acontecer,
+não existe JavaScript no nosso site capaz de contornar a restrição. A página também
+não consegue controlar o player da página mobile (autoplay/áudio/fullscreen interno)
+por causa da política de mesma origem. Para uso estável, mantenha `/tiktok/`,
+que usa o player oficial Twitch.
