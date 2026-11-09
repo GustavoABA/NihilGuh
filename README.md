@@ -7,7 +7,7 @@ Hub de live e interação da comunidade publicado em GitHub Pages, com estado au
 - `/` — perfil, canais, comunidade, apoio e estado da live.
 - `/live/` — player Twitch, relógio, metas e rodada.
 - `/tiktok/` — player Twitch isolado, 100% da janela, para captura no OBS/TikTok.
-- `/tiktok/mobile/` — **redireciona diretamente** para `https://m.twitch.tv/nihilguh`, sem iframe ou player próprio.
+- `/tiktok/mobile/` — **experimento de recorte CSS** do iframe de `m.twitch.tv/nihilguh`; oculta visualmente o chat lateral e centraliza o vídeo vertical caso a Twitch permita a incorporação.
 - `/tiktok/mobile-direto/` — redireciona no nível principal para `https://m.twitch.tv/nihilguh` sem iframe; útil para testar a interface mobile real como Fonte de Navegador.
 - `/play/` — minigame global sincronizado.
 - `/overlay/` — overlay OBS 600×400.
@@ -141,27 +141,38 @@ corretamente; câmera virtual transmite vídeo, não necessariamente áudio. O p
 da Twitch impõe tamanho mínimo de 400×300 px, portanto algumas telas móveis
 muito estreitas terão um pequeno corte horizontal.
 
-### Twitch mobile real na rota principal
+### Recorte mobile com HTML/CSS
 
-A rota `/tiktok/mobile/` redireciona de imediato o navegador para
-`https://m.twitch.tv/nihilguh`. Não usa iframe e não cria o embed
-`embed.twitch.tv`. É o mesmo endereço usado no primeiro print do usuário.
+A rota `/tiktok/mobile/` agora tenta abrir um **iframe**
+`https://m.twitch.tv/nihilguh` e mostrar apenas a região central do
+vídeo vertical da interface mobile. O `overflow:hidden` oculta o chat
+lateral. Não usa `transform: scale()` para converter uma miniatura de
+390 pixels em 1080: em uma fonte OBS de 1080×1920, a página calcula
+um iframe de cerca de 4063×1920 pixels e posiciona o recorte visível
+no centro do vídeo, com base na captura fornecida pelo usuário.
 
-Para capturar no OBS ou TikTok Live Studio, configure a fonte com dimensão
-**1080×1920** e abra `/tiktok/mobile/`, ou abra diretamente
-`https://m.twitch.tv/nihilguh`. A interface mostrada na captura será
-determinada pela Twitch e pelo navegador. O redirecionamento não altera o
-formato original do vídeo e, após a navegação para Twitch, nosso JavaScript
-não consegue controlar autoplay/áudio ou obrigar a interface mobile.
+- `/tiktok/mobile/?debug=1`: exibe dimensões para diagnosticar a geometria.
+- `/tiktok/mobile/?shift=50`: move o iframe 50 pixels para a direita; valores
+  negativos movem para a esquerda. Útil se o player da Twitch mudar de posição.
+- Autoplay: o iframe declara `allow="autoplay"`; a decisão de reproduzir
+  automaticamente é da Twitch e do navegador.
 
-A rota `/tiktok/` continua disponível como alternativa com player
-incorporado oficial, caso a Twitch não exiba o layout desejado no OBS.
+**Limitação decisiva:** a Twitch pode impedir que `m.twitch.tv` abra
+dentro de iframe de outro domínio através de `Content-Security-Policy:
+frame-ancestors` ou `X-Frame-Options`. A tela preta vista em testes
+anteriores é consistente com essa restrição; recortar o iframe por CSS
+não supera bloqueios de segurança. O layout e os elementos da página
+interna também não são controláveis pelo JavaScript do site devido à
+política de mesma origem. Não considere este método validado apenas
+porque passou nos testes de sintaxe. Para um link garantido à página mobile
+real, use `/tiktok/mobile-direto/`, que redireciona em nível superior, mas
+não permite esconder chat via CSS do nosso site.
 
 ### Abrir Twitch mobile real sem iframe
 
 A nova rota `/tiktok/mobile-direto/` faz uma navegação de primeiro nível para
-`https://m.twitch.tv/nihilguh`. Esta é uma experiência diferente do embed
-oficial `/tiktok/mobile/`. O redirecionamento evita a restrição de incorporar
+`https://m.twitch.tv/nihilguh`. Esta é uma experiência diferente do experimento de recorte
+`/tiktok/mobile/`. O redirecionamento evita a restrição de incorporar
 uma página comum da Twitch dentro de um iframe. Para testar, use a nova rota
 como URL de Fonte de Navegador do OBS, configure 1080×1920 e recarregue a fonte.
 
