@@ -46,6 +46,7 @@ jobs:
           test -f starting/index.html
           test -f tiktok/index.html
           test -f tiktok/mobile/index.html
+          test -f tiktok/mobile-direto/index.html
           test -f tiktok/mobile/mobile.js
           grep -q 'https://embed.twitch.tv/embed/v1.js' tiktok/mobile/index.html
           test -f tiktok/player.js
