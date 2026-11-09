@@ -2,53 +2,27 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0c0616">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="NihilGuh: layout vertical da Twitch para OBS e TikTok.">
-  <title>NihilGuh — Live vertical para TikTok</title>
+  <meta name="theme-color" content="#000000">
+  <meta http-equiv="refresh" content="0;url=https://m.twitch.tv/nihilguh">
+  <title>NihilGuh — Twitch mobile</title>
   <style>
-    * { box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #0c0616; color: white; }
-    body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
-    [hidden] { display: none !important; }
-    #viewport { position: fixed; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
-    #ribbon {
-      flex: none; display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-      gap: 8px; min-height: 48px; padding: 6px 10px; color: #f4ebff;
-      background: #20102d; font-size: 12px; text-align: center;
-      border-bottom: 1px solid #50366a;
-    }
-    #ribbon-action {
-      border: 1px solid #b995e3; padding: 7px 12px; border-radius: 8px;
-      font: inherit; font-weight: 700; color: #fff; background: #61328d; cursor: pointer;
-    }
-    #ribbon-link { color: #e2c3ff; font-weight: 700; text-underline-offset: 2px; }
-    #stage { position: relative; flex: 1; min-height: 0; width: 100%; background: #0c0616; overflow: hidden; }
-    #stage::before {
-      content: "Carregando Twitch…"; position: absolute; inset: 0; display: grid; place-items: center;
-      color: #9b8aa9; font-size: 14px;
-    }
-    #twitch-embed {
-      position: absolute; top: 0; left: 0; width: 400px; height: 711px;
-      transform-origin: top left; background: #0c0616; z-index: 1;
-    }
-    #twitch-embed iframe { display: block; border: 0; width: 100% !important; height: 100% !important; }
-    #twitch-embed > div { width: 100% !important; height: 100% !important; }
+    html, body { margin: 0; min-height: 100%; background: #000; color: #fff; font: 16px system-ui, sans-serif; }
+    body { display: grid; place-items: center; min-height: 100vh; }
+    main { text-align: center; padding: 20px; }
+    a { color: #c9a4ff; }
   </style>
+  <script>
+    // Navegacao de nivel superior (SEM iframe), para carregar
+    // a pagina mobile real da Twitch como solicitado.
+    window.location.replace("https://m.twitch.tv/nihilguh");
+  </script>
 </head>
 <body>
-  <main id="viewport" aria-label="Player Twitch em layout vertical para TikTok">
-    <div id="ribbon" role="status" aria-live="polite" hidden>
-      <span id="ribbon-message"></span>
-      <button id="ribbon-action" type="button" hidden>▶ Reproduzir</button>
-      <a id="ribbon-link" href="https://m.twitch.tv/nihilguh" target="_blank" rel="noopener noreferrer">Abrir na Twitch</a>
-    </div>
-    <section id="stage" aria-label="Transmissão NihilGuh e chat vertical">
-      <div id="twitch-embed"></div>
-    </section>
+  <main>
+    <p>Abrindo a versao mobile da Twitch…</p>
+    <p><a href="https://m.twitch.tv/nihilguh">Abrir NihilGuh diretamente na Twitch mobile</a></p>
   </main>
-  <script src="https://embed.twitch.tv/embed/v1.js" defer></script>
-  <script src="./mobile.js?v=1" defer></script>
 </body>
 </html>
