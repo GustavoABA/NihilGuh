@@ -2,27 +2,46 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#000000">
-  <meta http-equiv="refresh" content="0;url=https://m.twitch.tv/nihilguh">
-  <title>NihilGuh — Twitch mobile</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#000">
+  <meta name="robots" content="noindex,nofollow">
+  <title>NihilGuh — Twitch mobile recortada para TikTok</title>
   <style>
-    html, body { margin: 0; min-height: 100%; background: #000; color: #fff; font: 16px system-ui, sans-serif; }
-    body { display: grid; place-items: center; min-height: 100vh; }
-    main { text-align: center; padding: 20px; }
-    a { color: #c9a4ff; }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #000; }
+    #stage { position: fixed; inset: 0; overflow: hidden; background: #000; }
+    /* O iframe ocupa uma viewport DESKTOP ampla, para que o video vertical
+       ocupe cerca de 1080 pixels reais em uma fonte OBS 1080x1920. O painel
+       de chat fica fisicamente fora do recorte: nao usamos transform:scale().
+       O calculo do posicionamento e feito em crop.js. */
+    #twitch-mobile {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4063px;
+      height: 1920px;
+      display: block;
+      border: 0;
+      background: #000;
+    }
+    #debug { position: fixed; left: 10px; bottom: 10px; z-index: 4;
+      padding: 9px 12px; max-width: calc(100% - 20px);
+      font: 13px/1.4 system-ui, sans-serif; color: #fff;
+      background: rgba(15,15,15,.92); border: 1px solid #767676; border-radius: 8px; }
+    #debug[hidden] { display: none; }
+    #debug a { color: #d2b4ff; }
   </style>
-  <script>
-    // Navegacao de nivel superior (SEM iframe), para carregar
-    // a pagina mobile real da Twitch como solicitado.
-    window.location.replace("https://m.twitch.tv/nihilguh");
-  </script>
 </head>
 <body>
-  <main>
-    <p>Abrindo a versao mobile da Twitch…</p>
-    <p><a href="https://m.twitch.tv/nihilguh">Abrir NihilGuh diretamente na Twitch mobile</a></p>
+  <main id="stage" aria-label="Live vertical NihilGuh, com chat recortado">
+    <iframe id="twitch-mobile"
+      src="https://m.twitch.tv/nihilguh"
+      title="NihilGuh — Twitch mobile"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+      loading="eager"></iframe>
   </main>
+  <aside id="debug" hidden aria-live="polite"></aside>
+  <script src="./crop.js?v=1"></script>
 </body>
 </html>
