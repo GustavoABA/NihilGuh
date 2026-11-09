@@ -3,62 +3,52 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#0c0616">
   <meta name="robots" content="noindex, nofollow">
-  <title>NihilGuh — Twitch Mobile (teste iframe)</title>
+  <meta name="description" content="NihilGuh: layout vertical da Twitch para OBS e TikTok.">
+  <title>NihilGuh — Live vertical para TikTok</title>
   <style>
-    *{box-sizing:border-box}
-    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:system-ui,sans-serif}
-    #frame-host{position:fixed;inset:0;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;background:#000}
-    #mobile-frame{display:block;flex:none;border:0;width:390px;height:100dvh;transform-origin:top center;background:#000}
-    #help{position:fixed;right:12px;bottom:12px;z-index:5;display:flex;gap:8px;align-items:center;background:#131313dd;border:1px solid #ffffff45;border-radius:12px;padding:8px 10px;font-size:12px;max-width:calc(100vw - 24px)}
-    #help a{color:#d1b8ff;text-decoration:none;font-weight:700}
-    #help[hidden]{display:none}
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #0c0616; color: white; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    [hidden] { display: none !important; }
+    #viewport { position: fixed; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
+    #ribbon {
+      flex: none; display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+      gap: 8px; min-height: 48px; padding: 6px 10px; color: #f4ebff;
+      background: #20102d; font-size: 12px; text-align: center;
+      border-bottom: 1px solid #50366a;
+    }
+    #ribbon-action {
+      border: 1px solid #b995e3; padding: 7px 12px; border-radius: 8px;
+      font: inherit; font-weight: 700; color: #fff; background: #61328d; cursor: pointer;
+    }
+    #ribbon-link { color: #e2c3ff; font-weight: 700; text-underline-offset: 2px; }
+    #stage { position: relative; flex: 1; min-height: 0; width: 100%; background: #0c0616; overflow: hidden; }
+    #stage::before {
+      content: "Carregando Twitch…"; position: absolute; inset: 0; display: grid; place-items: center;
+      color: #9b8aa9; font-size: 14px;
+    }
+    #twitch-embed {
+      position: absolute; top: 0; left: 0; width: 400px; height: 711px;
+      transform-origin: top left; background: #0c0616; z-index: 1;
+    }
+    #twitch-embed iframe { display: block; border: 0; width: 100% !important; height: 100% !important; }
+    #twitch-embed > div { width: 100% !important; height: 100% !important; }
   </style>
 </head>
 <body>
-  <main id="frame-host" aria-label="Twitch mobile em iframe">
-    <iframe id="mobile-frame"
-      title="NihilGuh na Twitch mobile"
-      src="https://m.twitch.tv/nihilguh"
-      allow="autoplay; fullscreen; picture-in-picture"
-      allowfullscreen
-      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  <main id="viewport" aria-label="Player Twitch em layout vertical para TikTok">
+    <div id="ribbon" role="status" aria-live="polite" hidden>
+      <span id="ribbon-message"></span>
+      <button id="ribbon-action" type="button" hidden>▶ Reproduzir</button>
+      <a id="ribbon-link" href="https://m.twitch.tv/nihilguh" target="_blank" rel="noopener noreferrer">Abrir na Twitch</a>
+    </div>
+    <section id="stage" aria-label="Transmissão NihilGuh e chat vertical">
+      <div id="twitch-embed"></div>
+    </section>
   </main>
-  <nav id="help" aria-label="Opção de recuperação">
-    <span>Se aparecer tela preta:</span>
-    <a href="../">Usar player oficial</a>
-    <a href="https://m.twitch.tv/nihilguh" target="_blank" rel="noopener noreferrer">Abrir mobile</a>
-  </nav>
-  <script>
-    (() => {
-      const frame = document.getElementById('mobile-frame');
-      const help = document.getElementById('help');
-      const params = new URLSearchParams(location.search);
-      if (params.get('clean') === '1') help.hidden = true;
-
-      // A largura do documento dentro do iframe é de 390 CSS px,
-      // mesmo quando a fonte do OBS tem 1080 px de largura.
-      const fitMobile = () => {
-        const scale = innerWidth / 390;
-        frame.style.height = (innerHeight / scale) + 'px';
-        frame.style.transform = 'scale(' + scale + ')';
-      };
-      fitMobile();
-      window.addEventListener('resize', fitMobile);
-
-      document.addEventListener('keydown', (event) => {
-        if (event.code === 'KeyF' && !event.repeat && !event.altKey && !event.ctrlKey && !event.metaKey) {
-          event.preventDefault();
-          if (document.fullscreenElement) {
-            document.exitFullscreen().catch(() => {});
-          } else if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen().catch(() => {});
-          }
-        }
-        if (event.code === 'KeyH' && !event.repeat) help.hidden = !help.hidden;
-      });
-    })();
-  </script>
+  <script src="https://embed.twitch.tv/embed/v1.js" defer></script>
+  <script src="./mobile.js?v=1" defer></script>
 </body>
 </html>
