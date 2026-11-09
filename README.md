@@ -7,7 +7,7 @@ Hub de live e interação da comunidade publicado em GitHub Pages, com estado au
 - `/` — perfil, canais, comunidade, apoio e estado da live.
 - `/live/` — player Twitch, relógio, metas e rodada.
 - `/tiktok/` — player Twitch isolado, 100% da janela, para captura no OBS/TikTok.
-- `/tiktok/mobile/` — teste de iframe apontando literalmente para `https://m.twitch.tv/nihilguh`.
+- `/tiktok/mobile/` — Twitch Embed oficial com layout estreito de celular, vídeo em cima e chat embaixo, para canvas vertical.
 - `/play/` — minigame global sincronizado.
 - `/overlay/` — overlay OBS 600×400.
 - `/overlay.html` — URL legada do overlay.
@@ -140,17 +140,29 @@ corretamente; câmera virtual transmite vídeo, não necessariamente áudio. O p
 da Twitch impõe tamanho mínimo de 400×300 px, portanto algumas telas móveis
 muito estreitas terão um pequeno corte horizontal.
 
-### Experimento Twitch mobile em iframe
+### Twitch vertical para TikTok
 
-A rota `/tiktok/mobile/` aponta diretamente para `https://m.twitch.tv/nihilguh`.
-Ela dimensiona o iframe a **390 pixels CSS** e escala a imagem para a fonte do OBS,
-para tentar ativar a apresentação responsiva móvel mesmo em um canvas vertical maior.
-O parâmetro `?clean=1` oculta os links auxiliares; a tecla **H** alterna sua exibição.
+O link principal para o OBS/TikTok é `/tiktok/mobile/`. Depois de o teste
+direto de `m.twitch.tv/nihilguh` em iframe resultar numa tela preta, esta
+rota passou a usar **Twitch.Embed oficial**, sem carregar a página mobile
+dentro do iframe. Em tela vertical, o componente recebe uma largura interna
+de 400 pixels CSS e o site escala todo o player para o canvas 9:16. O modo
+`video-with-chat` apresenta o vídeo em cima e chat embaixo em telas estreitas.
 
-**Atenção:** esta é uma opção experimental. A Twitch não documenta `m.twitch.tv`
-como origem aprovada para iframe. Seu servidor pode bloquear a incorporação via
-`Content-Security-Policy: frame-ancestors` ou `X-Frame-Options`. Se isso acontecer,
-não existe JavaScript no nosso site capaz de contornar a restrição. A página também
-não consegue controlar o player da página mobile (autoplay/áudio/fullscreen interno)
-por causa da política de mesma origem. Para uso estável, mantenha `/tiktok/`,
-que usa o player oficial Twitch.
+- `/tiktok/mobile/`: vídeo e chat no layout estreito da Twitch.
+- `/tiktok/mobile/?mode=video`: apenas o vídeo, sem chat; pode haver barras
+  vazias, pois o player respeita a proporção original da transmissão.
+- `/tiktok/mobile/?muted=1`: inicia sem áudio, o que aumenta a chance de autoplay.
+- `/tiktok/mobile/?clean=1`: oculta a barra de recuperação de áudio.
+- Tecla `F`: tenta colocar o navegador em tela cheia após uma interação.
+
+Para o TikTok, configure a Fonte de Navegador do OBS em **1080×1920**. Por
+padrão, tentamos autoplay com áudio. Se o navegador impedir, o script
+tenta iniciar mutado e oferece um controle para ativar o áudio.
+
+**Importante:** o player exige pelo menos 400×300 px e a Twitch pode exigir
+um toque para iniciar a reprodução em celulares. Não é possível obrigar
+autoplay com som nem entrar em fullscreen nativo sem a permissão/ação do
+navegador. O layout é vertical, mas não converte um vídeo 16:9 em 9:16:
+preservamos o enquadramento transmitido. O áudio deve ser capturado
+separadamente se for usado com câmera virtual no TikTok.
