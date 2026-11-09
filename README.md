@@ -8,6 +8,7 @@ Hub de live e interação da comunidade publicado em GitHub Pages, com estado au
 - `/live/` — player Twitch, relógio, metas e rodada.
 - `/tiktok/` — player Twitch isolado, 100% da janela, para captura no OBS/TikTok.
 - `/tiktok/mobile/` — Twitch Embed oficial com layout estreito de celular, vídeo em cima e chat embaixo, para canvas vertical.
+- `/tiktok/mobile-direto/` — redireciona no nível principal para `https://m.twitch.tv/nihilguh` sem iframe; útil para testar a interface mobile real como Fonte de Navegador.
 - `/play/` — minigame global sincronizado.
 - `/overlay/` — overlay OBS 600×400.
 - `/overlay.html` — URL legada do overlay.
@@ -166,3 +167,17 @@ autoplay com som nem entrar em fullscreen nativo sem a permissão/ação do
 navegador. O layout é vertical, mas não converte um vídeo 16:9 em 9:16:
 preservamos o enquadramento transmitido. O áudio deve ser capturado
 separadamente se for usado com câmera virtual no TikTok.
+
+### Abrir Twitch mobile real sem iframe
+
+A nova rota `/tiktok/mobile-direto/` faz uma navegação de primeiro nível para
+`https://m.twitch.tv/nihilguh`. Esta é uma experiência diferente do embed
+oficial `/tiktok/mobile/`. O redirecionamento evita a restrição de incorporar
+uma página comum da Twitch dentro de um iframe. Para testar, use a nova rota
+como URL de Fonte de Navegador do OBS, configure 1080×1920 e recarregue a fonte.
+
+Limitações: a Twitch pode usar a identificação do navegador para decidir qual
+interface exibir; não há garantia de permanecer no layout móvel num browser
+de desktop. Depois do redirecionamento, nosso site não tem controle sobre o
+play/áudio, e a Twitch pode exigir interação para reprodução automática.
+O layout da interface não altera o formato original do vídeo transmitido.
