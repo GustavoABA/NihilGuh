@@ -21,6 +21,7 @@ jobs:
           node --check site.config.js
           node --check starting/starting.js
           node --check tiktok/player.js
+          node --check tiktok/mobile/mobile.js
       - name: Check Apps Script JavaScript syntax
         run: |
           cat apps-script/Code.gs apps-script/Interactions.gs apps-script/RoundEngine.gs > /tmp/backend.js
@@ -45,6 +46,8 @@ jobs:
           test -f starting/index.html
           test -f tiktok/index.html
           test -f tiktok/mobile/index.html
+          test -f tiktok/mobile/mobile.js
+          grep -q 'https://embed.twitch.tv/embed/v1.js' tiktok/mobile/index.html
           test -f tiktok/player.js
           test -f starting/starting.css
           test -f starting/starting.js
