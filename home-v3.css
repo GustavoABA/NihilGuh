@@ -347,3 +347,15 @@ body[data-page="home"].is-offline .home-flow .live-home-content{
   .live-panel-v3 .metric:first-child{grid-column:1/-1}
   .clean-footer-v3{flex-direction:column;gap:6px}
 }
+
+/* Entrada suave, escalonada e sem bloquear a navegação. */
+@media(prefers-reduced-motion:no-preference){
+ body[data-page="home"] .topbar{animation:ng-appear .65s both}
+ body[data-page="home"] .profile-v3{animation:ng-appear .75s .12s both}
+ body[data-page="home"] .social-hub-v3-head{animation:ng-appear .6s .26s both}
+ body[data-page="home"] .social-card-v3{animation:ng-appear .55s both;animation-delay:calc(.34s + var(--item-index,0)*.075s)}
+ body[data-page="home"] .social-card-v3:nth-child(1){--item-index:0}body[data-page="home"] .social-card-v3:nth-child(2){--item-index:1}body[data-page="home"] .social-card-v3:nth-child(3){--item-index:2}body[data-page="home"] .social-card-v3:nth-child(4){--item-index:3}body[data-page="home"] .social-card-v3:nth-child(5){--item-index:4}body[data-page="home"] .social-card-v3:nth-child(6){--item-index:5}body[data-page="home"] .social-card-v3:nth-child(7){--item-index:6}body[data-page="home"] .social-card-v3:nth-child(8){--item-index:7}
+ body[data-page="home"] .livepix-v3{animation:ng-appear .7s .9s both}
+ body[data-page="home"] .live-home-content{animation:ng-appear .7s 1s both}
+ @keyframes ng-appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+}
